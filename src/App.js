@@ -2,7 +2,11 @@ import { Button, Col, Row } from "antd";
 import "./App.css";
 import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMicrophone, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMicrophone,
+  faPause,
+  faPlay,
+} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [isRecording, setIsRecording] = useState(false);
@@ -11,7 +15,8 @@ function App() {
   const mediaRecorder = useRef(null);
   const audioRef = useRef(null);
 
-  const startRecording = () => {
+  const startRecording = (e) => {
+    e.preventDefault();
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
@@ -31,7 +36,8 @@ function App() {
       });
   };
 
-  const stopRecording = () => {
+  const stopRecording = (e) => {
+    e.preventDefault();
     if (mediaRecorder.current && isRecording) {
       mediaRecorder.current.stop();
       setIsRecording(false);
@@ -58,30 +64,40 @@ function App() {
   return (
     <div className="App">
       <Button
-        onTouchStart={(e) => e.preventDefault()}
-        style={{ userSelect: "none", marginBottom: '10px' }}
-        onMouseDown={startRecording}
-        onMouseUp={stopRecording}
+        onTouchStart={startRecording}
+        onTouchEnd={stopRecording}
+        style={{ userSelect: "none", marginBottom: "10px" }}
+        // onMouseDown={startRecording}
+        // onMouseUp={stopRecording}
         icon={<FontAwesomeIcon color="orange" icon={faMicrophone} />}
         shape="circle"
-        type={isRecording ? 'primary' : 'default'}
-      >
-      </Button>
+        type={isRecording ? "primary" : "default"}
+        size="large"
+      ></Button>
 
-      <Row style={{display: 'flex', flexDirection: 'column', gap: '5px'}} align={"middle"}>
-      {audioBlob.map((blob, index) => {
-        return (
+      <Row
+        style={{ display: "flex", flexDirection: "column", gap: "5px" }}
+        align={"middle"}
+      >
+        {audioBlob.map((blob, index) => {
+          return (
             <Col>
               <Button
                 type={isPlayingId === index ? "primary" : "default"}
                 onClick={() => playAudio(blob, index)}
-                icon={isPlayingId !== index ? <FontAwesomeIcon icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />}
+                icon={
+                  isPlayingId !== index ? (
+                    <FontAwesomeIcon icon={faPlay} />
+                  ) : (
+                    <FontAwesomeIcon icon={faPause} />
+                  )
+                }
               >
                 Голосовое {index + 1}
               </Button>
             </Col>
-        );
-      })}
+          );
+        })}
       </Row>
       <audio
         ref={audioRef}
