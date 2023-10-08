@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/voice-test/static/css/main.39060b40.css",
+    "main.js": "/voice-test/static/js/main.2304737e.js",
+    "index.html": "/voice-test/index.html",
+    "main.39060b40.css.map": "/voice-test/static/css/main.39060b40.css.map",
+    "main.2304737e.js.map": "/voice-test/static/js/main.2304737e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.39060b40.css",
+    "static/js/main.2304737e.js"
+  ]
+}
