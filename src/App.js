@@ -12,6 +12,7 @@ function App() {
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState([]);
   const [isPlayingId, setIsPlayingId] = useState(null);
+  const [mediaStream, setMediaStream] = useState(null);
   const mediaRecorder = useRef(null);
   const audioRef = useRef(null);
 
@@ -20,6 +21,7 @@ function App() {
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
+        setMediaStream(stream);
         const mediaRecorderInstance = new MediaRecorder(stream);
         mediaRecorderInstance.ondataavailable = (e) => {
           if (e.data.size > 0) {
@@ -41,6 +43,12 @@ function App() {
     if (mediaRecorder.current && isRecording) {
       mediaRecorder.current.stop();
       setIsRecording(false);
+      if (mediaStream) {
+        mediaStream.getTracks().forEach((track) => {
+          track.stop(); // Остановка медиапотока
+        });
+        setMediaStream(null); // Очистка состояния медиапотока
+      }
     }
   };
 
