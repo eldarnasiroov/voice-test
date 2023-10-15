@@ -18,6 +18,7 @@ function App() {
 
   const startRecording = (e) => {
     e.preventDefault();
+    vibrateDevice();
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
@@ -49,6 +50,7 @@ function App() {
         });
         setMediaStream(null); // Очистка состояния медиапотока
       }
+      vibrateDevice();
     }
   };
 
@@ -67,6 +69,14 @@ function App() {
 
   const handleAudioEnded = () => {
     setIsPlayingId(null);
+  };
+
+  const vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+  const vibrateDevice = () => {
+    if (vibrate) {
+      vibrate([100]); // Вибрация в течение 100 миллисекунд
+    }
   };
 
   return (
