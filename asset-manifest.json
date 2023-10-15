@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/voice-test/static/css/main.39060b40.css",
-    "main.js": "/voice-test/static/js/main.5bec45ad.js",
+    "main.js": "/voice-test/static/js/main.60023b35.js",
     "index.html": "/voice-test/index.html",
     "main.39060b40.css.map": "/voice-test/static/css/main.39060b40.css.map",
-    "main.5bec45ad.js.map": "/voice-test/static/js/main.5bec45ad.js.map"
+    "main.60023b35.js.map": "/voice-test/static/js/main.60023b35.js.map"
   },
   "entrypoints": [
     "static/css/main.39060b40.css",
-    "static/js/main.5bec45ad.js"
+    "static/js/main.60023b35.js"
   ]
 }
