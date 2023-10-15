@@ -16,6 +16,18 @@ function App() {
   const mediaRecorder = useRef(null);
   const audioRef = useRef(null);
 
+  const vibrate =
+    navigator.vibrate ||
+    navigator.webkitVibrate ||
+    navigator.mozVibrate ||
+    navigator.msVibrate;
+
+  const vibrateDevice = () => {
+    if (vibrate) {
+      vibrate.call(navigator, [100]);
+    }
+  };
+
   const startRecording = (e) => {
     e.preventDefault();
     vibrateDevice();
@@ -71,22 +83,14 @@ function App() {
     setIsPlayingId(null);
   };
 
-  const vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-
-  const vibrateDevice = () => {
-    if (vibrate) {
-      vibrate([100]); // Вибрация в течение 100 миллисекунд
-    }
-  };
-
   return (
     <div className="App">
       <Button
         onTouchStart={startRecording}
         onTouchEnd={stopRecording}
         style={{ userSelect: "none", marginBottom: "10px" }}
-        // onMouseDown={startRecording}
-        // onMouseUp={stopRecording}
+        onMouseDown={startRecording}
+        onMouseUp={stopRecording}
         icon={<FontAwesomeIcon color="orange" icon={faMicrophone} />}
         shape="circle"
         type={isRecording ? "primary" : "default"}
